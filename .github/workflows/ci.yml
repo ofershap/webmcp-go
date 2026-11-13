@@ -27,6 +27,8 @@ jobs:
       - uses: golangci/golangci-lint-action@v8
         with:
           version: v2.15.0
+          # stdlib-only module: no go.sum exists, so the action's dependency cache has nothing to key on
+          skip-cache: true
   govulncheck:
     runs-on: ubuntu-latest
     steps:
