@@ -56,7 +56,7 @@ func main() {
 	http.Handle("/webmcp/", m.ServeHTTP("/webmcp"))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
-		w.Write([]byte(`<!doctype html><title>webmcp-go demo</title>
+		_, _ = w.Write([]byte(`<!doctype html><title>webmcp-go demo</title>
 <h1>Todos</h1>` + webmcp.ScriptTag("/webmcp") + `<p>Open this page in a WebMCP-capable browser and ask the agent to add a todo.</p>`))
 	})
 	log.Println("listening on :8080")

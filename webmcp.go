@@ -134,7 +134,9 @@ func (m *Mux) serveRegisterJS(w http.ResponseWriter, r *http.Request) {
 `)
 	w.Header().Set("Content-Type", "text/javascript; charset=utf-8")
 	w.Header().Set("Cache-Control", "no-cache")
-	fmt.Fprint(w, b.String())
+	if _, err := fmt.Fprint(w, b.String()); err != nil {
+		return
+	}
 }
 
 func (m *Mux) serveInvoke(w http.ResponseWriter, r *http.Request) {
@@ -168,7 +170,9 @@ func (m *Mux) serveInvoke(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	if out == nil {
-		fmt.Fprint(w, "null")
+		if _, err := fmt.Fprint(w, "null"); err != nil {
+			return
+		}
 		return
 	}
 	if err := json.NewEncoder(w).Encode(out); err != nil {
