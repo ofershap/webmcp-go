@@ -1,0 +1,17 @@
+# webmcp-go
+
+> Serve WebMCP tools (navigator.modelContext) from a Go net/http server.
+> Declare tools with typed input schemas and handlers in Go; the package
+> serves the registration script and the invoke endpoint. Stdlib only.
+
+## Usage
+
+- mux := webmcp.NewMux(); mux.Register(webmcp.Tool{Name, Description, InputSchema, Handler}).
+- Schemas: webmcp.ObjectSchema(webmcp.String("field", "doc").Req(), ...) builds typed JSON Schema in Go.
+- Mount: http.Handle("/.well-known/webmcp/", mux.ServeHTTP("/.well-known/webmcp")).
+- Pages add one line: <script src="/.well-known/webmcp/register.js" defer></script>; agent calls POST to your Go handler.
+- Compatibility: WebMCP is early (Chrome 149+ Origin Trial, Edge 150+, ChatGPT Desktop); see the README's honest status section.
+
+## Docs
+
+- [README](https://github.com/ofershap/webmcp-go#readme): compatibility status, usage, what you get
